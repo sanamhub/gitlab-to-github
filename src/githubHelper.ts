@@ -428,12 +428,14 @@ export class GithubHelper {
    */
   async importIssueAndComments(issue: GitLabIssue) {
     let bodyConverted = issue.isPlaceholder
-      ? issue.description ?? ''
+      ? issue.description ?? `[ GitLab Issue URL: ${issue.web_url} ]`
       : await this.convertIssuesAndComments(
-          issue.description ?? '',
+          `${issue.description} [ GitLab Issue URL: ${issue.web_url} ]` ??
+            '' + ` [ GitLab Issue URL: ${issue.web_url} ]`,
           issue,
           !this.userIsCreator(issue.author) || !issue.description
         );
+    console.log('__Importing Issue__', issue);
 
     let props: IssueImport = {
       title: issue.title ? issue.title.trim() : '',
@@ -1315,7 +1317,10 @@ export class GithubHelper {
       dateformatOptions
     );
 
-    const attribution = `In GitLab by @${item.author.username} on ${formattedDate}`;
+    let attribution = `In GitLab by @${item.author.username} on ${formattedDate}.`;
+    if (item.web_url) {
+      attribution += ` GitLab Issue URL: ` + item.web_url;
+    }
     const lineRef =
       item && item.position
         ? GithubHelper.createLineRef(item.position, repoLink)
