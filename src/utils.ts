@@ -80,13 +80,7 @@ export const migrateAttachments = async (
         ? gitlabHelper.host
         : gitlabHelper.host + '/';
       const attachmentUrl = host + gitlabHelper.projectPath + url;
-      body += `
-
-      ##### Attachment (GitLab)
-
-      ${attachmentUrl}
-      
-      `;
+      body += `, Attachments (GitLab URL): ${attachmentUrl}`;
       offsetToAttachment[
         match.index as number
       ] = `${prefix}[${name}](${attachmentUrl})`;
