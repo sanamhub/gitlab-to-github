@@ -30,7 +30,7 @@ export const migrateAttachments = async (
     const prefix = match[1] || '';
     const name = match[2];
     const url = match[3];
-    console.log('Has Bucket Setup', s3 && s3.bucket);
+    // console.log('Has Bucket Setup', s3 && s3.bucket);
     if (s3 && s3.bucket) {
       const basename = path.basename(url);
       const mimeType = mime.lookup(basename);
@@ -81,13 +81,12 @@ export const migrateAttachments = async (
         : gitlabHelper.host + '/';
       const attachmentUrl = host + gitlabHelper.projectPath + url;
       body += `
-      <br />
-      <details><summary>Link to GitLab attachments</summary>
-      ${attachmentUrl}
-      </details>
-      <br /> 
-      `;
 
+      ##### Attachment (GitLab)
+
+      ${attachmentUrl}
+      
+      `;
       offsetToAttachment[
         match.index as number
       ] = `${prefix}[${name}](${attachmentUrl})`;
