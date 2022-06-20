@@ -81,9 +81,9 @@ export const migrateAttachments = async (
         : gitlabHelper.host + '/';
       const attachmentUrl = host + gitlabHelper.projectPath + url;
       body += `
-       <br />
+      <br />
       <details><summary>Link to GitLab attachments</summary>
-      [${attachmentUrl}](${attachmentUrl})
+      ${attachmentUrl}
       </details>
       <br /> 
       `;
