@@ -428,7 +428,7 @@ export class GithubHelper {
    */
   async importIssueAndComments(issue: GitLabIssue) {
     issue.description = issue.description === null ? '' : issue.description;
-    issue.description += `, In GitLab at: ${issue.web_url}`;
+    issue.description += `<br />In GitLab at: ${issue.web_url}<br />`;
     let bodyConverted = issue.isPlaceholder
       ? issue.description ?? ''
       : await this.convertIssuesAndComments(
